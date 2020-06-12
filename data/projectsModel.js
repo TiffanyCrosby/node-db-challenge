@@ -3,12 +3,12 @@ const db = require('../data/db-config.js');
 module.exports = {
     find,
     add,
-    findResources,
-    remove, 
     findById,
+    findResources,
+    findTask,
+    addTask,
     addResources,
-    findTask, 
-    addTask
+    remove, 
   }
 
 function find() {
@@ -45,8 +45,8 @@ function addTask(taskData) {
   })
 }
 
-function addResources(resourcesData) {
-  return db('resources').insert(resourcesData)
+function addResources(body) {
+  return db('resources').insert(body)
   .then(ids => {
     const [ id ] = ids;
     return findById(id);

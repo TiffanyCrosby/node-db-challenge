@@ -23,7 +23,7 @@ router.get('/:id', (req, res) => {
   Projects.findById(id)
   .then(project => {
      if (project) {
-      res.staus(200).json(project);
+      res.status(200).json(project);
     } else {
       res.status(404).json({message: 'We could not find the project by that ID'})
     }
@@ -80,6 +80,7 @@ router.post('/', (req, res) => {
 router.post('/resources', (req, res) => {
   const body = req.body;
 
+
       Projects.addResources(body)
       .then(resource => {
         res.status(201).json(resource);
@@ -112,7 +113,7 @@ router.delete('/:id', (req, res) => {
   Projects.remove(id)
   .then(deleted => {
     if (deleted) {
-      res.status(200).json({ removed: deleted });
+      res.status(200).json(`Success, Deleted!`);
     } else {
       res.status(404).json({ message: 'We could not find the project by that ID' });
     }
