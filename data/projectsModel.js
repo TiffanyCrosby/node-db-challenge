@@ -31,26 +31,28 @@ function findResources(id){
 }
 
 function findTask(id){
-  return db('tasks as t')
-    .join('projects as p', 'p.id', 't.project_id')
-    .select('t.id', 'p.name', 't.description')
-    .where({project_id: id})
+  return db
+  .select(
+    'p.name',
+    'p.descriptions as projectDescription',
+    't.id as TaskNumber',
+    't.descriptions as taskDescription'
+  )
+  .from('tasks as t')
+  .join('project as p', 't.project_id', '=', 'p.id')
+  .where({ 't.project_id': id });
 }
 
-function addTask(taskData) {
-  return db('tasks').insert(taskData)
-  .then(ids => {
-    const [ id ] = ids;
-    return findById(id);
-  })
+function addTask(body) {
+  return db('tasks').insert(body, 'id').then((ids) => {
+		return findByOneTaskId(ids[0]);
+	});
 }
 
 function addResources(body) {
-  return db('resources').insert(body)
-  .then(ids => {
-    const [ id ] = ids;
-    return findById(id);
-  })
+  return db('resources').insert(body, 'id').then((ids) => {
+		return findById(ids[0]);
+	});
 }
 
 function remove(id) {

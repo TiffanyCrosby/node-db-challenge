@@ -107,20 +107,20 @@ router.post('/tasks', (req, res) => {
 })
 
 
-router.delete('/:id', (req, res) => {
-  const id = req.params.id;
+// router.delete('/:id', (req, res) => {
+//   const id = req.params.id;
 
-  Projects.remove(id)
-  .then(deleted => {
-    if (deleted) {
-      res.status(200).json(`Success, Deleted!`);
-    } else {
-      res.status(404).json({ message: 'We could not find the project by that ID' });
-    }
-  })
-  .catch(err => {
-    res.status(500).json({ message: 'Failed to delete project' });
-  });
-});
+//   Projects.remove(id)
+//   .then(deleted => {
+//     if (deleted) {
+//       res.status(200).json(`Success, Deleted!`);
+//     } else {
+//       res.status(404).json({ message: 'We could not find the project by that ID' });
+//     }
+//   })
+//   .catch(err => {
+//     res.status(500).json({ message: 'Failed to delete project' });
+//   });
+// });
 
 module.exports = router;
