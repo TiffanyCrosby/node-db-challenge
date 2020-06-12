@@ -113,7 +113,7 @@ router.post('/tasks', (req, res) => {
 //   Projects.remove(id)
 //   .then(deleted => {
 //     if (deleted) {
-//       res.status(200).json(`Success, Deleted!`);
+//       res.status(200).json(`Success,`);
 //     } else {
 //       res.status(404).json({ message: 'We could not find the project by that ID' });
 //     }

@@ -31,16 +31,10 @@ function findResources(id){
 }
 
 function findTask(id){
-  return db
-  .select(
-    'p.name',
-    'p.descriptions as projectDescription',
-    't.id as TaskNumber',
-    't.descriptions as taskDescription'
-  )
-  .from('tasks as t')
-  .join('project as p', 't.project_id', '=', 'p.id')
-  .where({ 't.project_id': id });
+  return db('tasks as t')
+    .join('projects as p', 'p.id', 't.project_id')
+    .select('t.id', 'p.name', 't.description')
+    .where({project_id: id})
 }
 
 function addTask(body) {
@@ -50,9 +44,11 @@ function addTask(body) {
 }
 
 function addResources(body) {
-  return db('resources').insert(body, 'id').then((ids) => {
-		return findById(ids[0]);
-	});
+  return db('resources').insert(body)
+  .then(ids => {
+    const [ id ] = ids;
+    return findById(id);
+  })
 }
 
 function remove(id) {
